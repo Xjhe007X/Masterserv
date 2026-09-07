@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MasterServ Limeira - Ar Condicionado e Instalações Especializadas</title>
+    <meta name="description" content="Serviços profissionais em Limeira: instalação, manutenção e higienização de ar condicionado, TVs, chuveiros, tomadas, fliperamas, porteiros, câmeras e fechaduras.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+    <style>
+        /* =====================================================
+           TOKENS
+        ===================================================== */
+        :root {
+            --ink: #0f1f3d;
+            --ink-soft: #47597e;
+            --steel: #16305c;
+            --steel-2: #0a1a33;
+            --paper: #f2f4f8;
+            --panel: #ffffff;
+            --line: #d7deea;
+            --accent: #ee6c1f;
+            --accent-dark: #c8560f;
+            --accent-soft: #fde3d0;
+            --whatsapp: #25d366;
+            --whatsapp-dark: #128c7e;
+            --radius: 10px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--paper);
+        }
+
+        h1, h2, h3, .brand-font {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+        }
+
+        img { max-width: 100%; display: block; }
+
+        .container {
+            width: 90%;
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a { color: inherit; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 1.5px solid rgba(255,255,255,0.5);
+        }
+
+        .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: white; }
+
+        .btn-whatsapp { background: var(--whatsapp); }
+        .btn-whatsapp:hover { background: var(--whatsapp-dark); }
+
+        section { padding: 96px 0; }
+
+        .eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent-dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .eyebrow::before {
+            content: '';
+            width: 22px;
+            height: 2px;
+            background: var(--accent);
+            display: inline-block;
+        }
+
+        .section-head {
+            max-width: 640px;
+            margin-bottom: 50px;
+        }
+
+        .section-head h2 {
+            font-size: 2.1rem;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.25;
+        }
+
+        .section-head p {
+            color: var(--ink-soft);
+            margin-top: 12px;
+            font-size: 1.05rem;
+        }
+
+        /* Uniform media boxes: fixes cropped / stretched photos everywhere */
+        .media-box {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius);
+            background: var(--line);
+        }
+        .media-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        .media-box.ratio-4-3 { aspect-ratio: 4 / 3; }
+        .media-box.ratio-1-1 { aspect-ratio: 1 / 1; }
+        .media-box.ratio-16-9 { aspect-ratio: 16 / 9; }
+
+        /* graceful fallback if a photo file hasn't been added yet */
+        .media-box img.img-missing { display: none; }
+        .media-box .media-fallback {
+            display: none;
+            position: absolute;
+            inset: 0;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--steel), var(--steel-2));
+            color: rgba(255,255,255,0.5);
+            font-size: 2rem;
+        }
+        .media-box:has(img.img-missing) .media-fallback { display: flex; }
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+        header {
+            background: var(--steel-2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: padding 0.25s ease;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        header.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.25); }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+        }
+
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo img { height: 42px; width: auto; }
+        .logo h1 { font-size: 1.25rem; color: white; font-weight: 600; }
+
+        nav ul { display: flex; list-style: none; flex-wrap: wrap; }
+
+        nav ul li a {
+            color: #cfd5dc;
+            text-decoration: none;
+            padding: 10px 16px;
+            font-weight: 500;
+            font-size: 0.96rem;
+            transition: color 0.2s ease;
+        }
+
+        nav ul li a:hover { color: var(--accent); }
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+        .hero {
+            position: relative;
+            color: white;
+            padding: 190px 0 100px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('assets/hero.jpg') center/cover no-repeat;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(100deg, rgba(20,26,34,0.94) 0%, rgba(20,26,34,0.86) 45%, rgba(238,108,31,0.35) 100%);
+        }
+
+        .hero .container { position: relative; z-index: 1; }
+
+        .hero-inner { max-width: 640px; }
+
+        .hero h2 {
+            font-size: 2.9rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: #dde1e6;
+            margin-bottom: 32px;
+            max-width: 520px;
+        }
+
+        .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; }
+
+        .hero-stats {
+            display: flex;
+            gap: 36px;
+            flex-wrap: wrap;
+            border-top: 1px solid rgba(255,255,255,0.18);
+            padding-top: 28px;
+        }
+
+        .hero-stats div strong {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            color: var(--accent);
+        }
+
+        .hero-stats div span {
+            font-size: 0.9rem;
+            color: #cfd5dc;
+        }
+
+        /* =====================================================
+           SERVICES
+        ===================================================== */
+        .services { background: var(--paper); }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 26px;
+        }
+
+        .service-card {
+            background: var(--panel);
+            border-radius: var(--radius);
+            border: 1px solid var(--line);
+            overflow: hidden;
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(28,36,48,0.1);
+        }
+
+        .service-media { position: relative; }
+
+        .service-icon {
+            position: absolute;
+            bottom: -18px;
+            left: 18px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            border: 3px solid var(--panel);
+        }
+
+        .service-body { padding: 32px 22px 22px; }
+
+        .service-body h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--ink);
+        }
+
+        .service-body p { color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 6px; }
+
+        .service-price {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-dark);
+            background: var(--accent-soft);
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        /* =====================================================
+           ABOUT
+        ===================================================== */
+        .about { background: var(--panel); }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 56px;
+            align-items: center;
+        }
+
+        .about-image { border-top: 4px solid var(--accent); }
+
+        .about-text p {
+            margin-bottom: 18px;
+            font-size: 1.03rem;
+            color: var(--ink-soft);
+        }
+
+        .about-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--ink);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .about-badge i { color: var(--accent); }
+
+        /* =====================================================
+           GALLERY
+        ===================================================== */
+        .gallery { background: var(--paper); }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 18px;
+        }
+
+        .gallery-item { position: relative; }
+
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(0deg, rgba(20,26,34,0.88), transparent);
+            color: white;
+            padding: 30px 14px 14px;
+            font-weight: 600;
+            font-size: 0.92rem;
+        }
+
+        /* =====================================================
+           CONTACT
+        ===================================================== */
+        .contact { background: var(--panel); }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 50px;
+            align-items: flex-start;
+        }
+
+        .contact-info-card {
+            background: var(--steel-2);
+            color: white;
+            border-radius: var(--radius);
+            padding: 34px;
+        }
+
+        .contact-info-card h3 { font-size: 1.3rem; margin-bottom: 14px; }
+        .contact-info-card p { color: #cfd5dc; margin-bottom: 22px; }
+
+        .contact-info-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 0.96rem;
+        }
+
+        .contact-info-row i {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(238,108,31,0.18);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        #service-form {
+            background: var(--panel);
+            padding: 34px;
+            border-radius: var(--radius);
+            border: 1px solid var(--line);
+            border-top: 3px solid var(--accent);
+        }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        .form-group { margin-bottom: 20px; }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: var(--ink);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: var(--paper);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px var(--accent-soft);
+            background: var(--panel);
+        }
+
+        /* =====================================================
+           COVERAGE MAP
+        ===================================================== */
+        #cobertura { background: var(--paper); }
+
+        #cobertura .section-head { margin-bottom: 30px; }
+
+        .map-frame {
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--line);
+        }
+
+        .map-frame iframe { display: block; width: 100%; height: 420px; border: 0; }
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+        footer {
+            background: var(--steel-2);
+            color: #cfd5dc;
+            padding: 64px 0 0;
+        }
+
+        footer .container {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-info h3 { color: white; font-size: 1.4rem; margin-bottom: 14px; }
+        .footer-info p { margin-bottom: 20px; }
+
+        .social-links { display: flex; gap: 12px; }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.05rem;
+            transition: background 0.2s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover { background: var(--accent); }
+
+        .footer-contact h3, .footer-links h3 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        .footer-contact p {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { text-decoration: none; color: #cfd5dc; transition: color 0.2s ease; }
+        .footer-links a:hover { color: var(--accent); }
+
+        .copyright {
+            text-align: center;
+            padding: 22px 0;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            margin-top: 50px;
+            font-size: 0.88rem;
+            color: #8f98a3;
+        }
+
+        @media (max-width: 992px) {
+            .about-content { grid-template-columns: 1fr; }
+            .about-image { order: -1; }
+            .contact-grid { grid-template-columns: 1fr; }
+            footer .container { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            section { padding: 64px 0; }
+            .hero { padding: 150px 0 70px; }
+            .hero h2 { font-size: 2.1rem; }
+            header .container { flex-direction: column; padding: 14px; }
+            .logo { margin-bottom: 12px; }
+            nav ul { justify-content: center; }
+            .form-row { grid-template-columns: 1fr; }
+            footer .container { grid-template-columns: 1fr; text-align: left; }
+        }
+
+        /* =====================================================
+           CHATBOT
+        ===================================================== */
+        .ai-assistant {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .ai-button {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(238,108,31,0.45);
+            transition: transform 0.2s ease;
+            border: none;
+        }
+
+        .ai-button:hover { transform: scale(1.08); }
+
+        .ai-chat-container {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 380px;
+            height: 520px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid var(--line);
+        }
+
+        .ai-chat-header {
+            padding: 16px 20px;
+            background: var(--steel-2);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-chat-header h6 { font-size: 1rem; font-weight: 600; margin: 0; }
+        .ai-chat-header small { font-size: 0.75rem; opacity: 0.75; }
+
+        .ai-chat-messages {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: var(--paper);
+        }
+
+        .ai-message {
+            padding: 10px 14px;
+            border-radius: 14px;
+            max-width: 85%;
+            line-height: 1.45;
+            font-size: 14px;
+        }
+
+        .ai-message.bot {
+            background: white;
+            border: 1px solid var(--line);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .ai-message.user {
+            background: var(--accent);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .ai-message p { margin: 0; }
+
+        .message-time { font-size: 10px; opacity: 0.6; margin-top: 4px; }
+
+        .ai-chat-input-container { padding: 12px; border-top: 1px solid var(--line); background: white; }
+
+        .quick-suggestions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+
+        .suggestion-chip {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--ink);
+        }
+
+        .suggestion-chip:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+        .ai-chat-input { display: flex; gap: 8px; }
+
+        .ai-chat-input input {
+            flex: 1;
+            border: 1px solid var(--line);
+            border-radius: 25px;
+            padding: 10px 15px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .ai-chat-input input:focus { border-color: var(--accent); }
+
+        .ai-chat-input button {
+            background: var(--accent);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+        }
+
+        .ai-typing { display: inline-flex; gap: 4px; align-items: center; }
+        .ai-typing span {
+            height: 6px; width: 6px; background: var(--accent);
+            border-radius: 50%; animation: typing 1.4s infinite ease-in-out;
+        }
+        .ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+        .ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+
+        @media (max-width: 480px) {
+            .ai-chat-container { width: calc(100vw - 40px); right: 20px; height: 65vh; }
+        }
+
+        /* accessibility: visible focus + reduced motion */
+        a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            * { transition: none !important; animation: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <header id="site-header">
+        <div class="container">
+            <div class="logo">
+                <img src="assets/logo.png" alt="MasterServ Limeira">
+                <h1>MasterServ Limeira</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#services">Serviços</a></li>
+                    <li><a href="#about">Sobre Nós</a></li>
+                    <li><a href="#gallery">Galeria</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-bg" role="presentation"></div>
+        <div class="container">
+            <div class="hero-inner">
+                <h2>Instalações e reparos técnicos, resolvidos com garantia</h2>
+                <p>Ar condicionado, elétrica, TV, câmeras, interfones e portões automáticos em Limeira e região. Atendimento rápido, profissionais qualificados.</p>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn">Solicitar orçamento</a>
+                    <a href="https://wa.me/5519993007408" target="_blank" class="btn btn-outline"><i class="fab fa-whatsapp"></i> Falar no WhatsApp</a>
+                </div>
+                <div class="hero-stats">
+                    <div><strong>90 dias</strong><span>de garantia em todo serviço</span></div>
+                    <div><strong>8+</strong><span>especialidades técnicas</span></div>
+                    <div><strong>Limeira/SP</strong><span>e região</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-head">
+                <div class="eyebrow">O que fazemos</div>
+                <h2>Serviços especializados</h2>
+                <p>Cada visita já sai com diagnóstico, preço fechado e garantia de 90 dias.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-media">
+                        <div class="media-box ratio-4-3">
+                            <img src="assets/ar.jpg" alt="Ar Condicionado" onerror="this.classList.add('img-missing')">
+                            <div class="media-fallback"><i class="fas fa-wind"></i></div>
+                        </div>
+                        <div class="service-icon"><i class="fas fa-wind"></i></div>
+                    </div>
+                    <div class="service-body">
+                        <h3>Ar Condicionado</h3>
+                        <p>Instalação, manutenção e higienização completa.</p>
+                        <span class="service-price">Instalação a partir de R$ 450</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-media">
+                        <div class="media-box ratio-4-3">
+                            <img src="assets/chuveiro.jpg" alt="Chuveiro" onerror="this.classList.add('img-missing')">
+                            <div class="media-fallback"><i class="fas fa-shower"></i></div>
+                        </div>
+                        <div class="service-icon"><i class="fas fa-shower"></i></div>
+                    </div>
+                    <div class="service-body">
+                        <h3>Troca de Chuveiro</h3>
+                        <p>Conserto e troca de resistência de chuveiro.</p>
+                        <span class="service-price">A partir de R$ 70 + resistência</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-media">
+                        <div class="media-box ratio-4-3">
+                            <img src="assets/camera.jpg" alt="Câmera de segurança" onerror="this.classList.add('img-missing')">
+                            <div class="media-fallback"><i class="fas fa-video"></i></div>
+                        </div>
+                        <div class="service-icon"><i class="fas fa-video"></i></div>
+                    </div>
+                    <div class="service-body">
+                        <h3>Câmeras de Segurança</h3>
+                        <p>Instalação de CFTV e câmeras IP.</p>
+                        <span class="service-price">A partir de R$ 150</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-media">
+                        <div class="media-box ratio-4-3">
+                            <img src="assets/interfone.jpg" alt="Interfone e fechadura" onerror="this.classList.add('img-missing')">
+                            <div class="media-fallback"><i class="fas fa-door-open"></i></div>
+                        </div>
+                        <div class="service-icon"><i class="fas fa-door-open"></i></div>
+                    </div>
+                    <div class="service-body">
+                        <h3>Interfone e Fechadura</h3>
+                        <p>Instalação de interfone e fechaduras digitais.</p>
+                        <span class="service-price">A partir de R$ 150</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-media">
+                        <div class="media-box ratio-4-3">
+                            <img src="assets/portao.jpg" alt="Portão eletrônico" onerror="this.classList.add('img-missing')">
+                            <div class="media-fallback"><i class="fas fa-warehouse"></i></div>
+                        </div>
+                        <div class="service-icon"><i class="fas fa-warehouse"></i></div>
+                    </div>
+                    <div class="service-body">
+                        <h3>Reparo Portão Elétrico</h3>
+                        <p>Manutenção de motores e portões automáticos.</p>
+                        <span class="service-price">A partir de R$ 120</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-media">
+                        <div class="media-box ratio-4-3">
+                            <img src="assets/eletrica.jpg" alt="Elétrica em geral" onerror="this.classList.add('img-missing')">
+                            <div class="media-fallback"><i class="fas fa-plug"></i></div>
+                        </div>
+                        <div class="service-icon"><i class="fas fa-plug"></i></div>
+                    </div>
+                    <div class="service-body">
+                        <h3>Elétrica em Geral</h3>
+                        <p>Tomadas, interruptores, lâmpadas e disjuntores.</p>
+                        <span class="service-price">Consulte preços</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-media">
+                        <div class="media-box ratio-4-3">
+                            <img src="assets/tv.jpg" alt="Instalação de TV" onerror="this.classList.add('img-missing')">
+                            <div class="media-fallback"><i class="fas fa-tv"></i></div>
+                        </div>
+                        <div class="service-icon"><i class="fas fa-tv"></i></div>
+                    </div>
+                    <div class="service-body">
+                        <h3>Instalação de TVs</h3>
+                        <p>Suportes fixos e articulados.</p>
+                        <span class="service-price">A partir de R$ 150</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-media">
+                        <div class="media-box ratio-4-3">
+                            <img src="assets/fliperama-installation.jpg" alt="Manutenção de Fliperamas" onerror="this.classList.add('img-missing')">
+                            <div class="media-fallback"><i class="fas fa-gamepad"></i></div>
+                        </div>
+                        <div class="service-icon"><i class="fas fa-gamepad"></i></div>
+                    </div>
+                    <div class="service-body">
+                        <h3>Manutenção Fliperama</h3>
+                        <p>Reparo de fliperamas e arcades.</p>
+                        <span class="service-price">A partir de R$ 100</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="eyebrow">Quem somos</div>
+                    <h2 style="font-size:2rem; font-weight:600; margin-bottom:18px;">Sobre a MasterServ</h2>
+                    <p>A MasterServ Limeira é especializada em serviços de instalação e manutenção, oferecendo soluções rápidas e eficientes para sua casa ou empresa na região de Limeira/SP.</p>
+                    <p>Nossa equipe é formada por profissionais qualificados e comprometidos com a qualidade do serviço e a satisfação do cliente.</p>
+                    <p>Atendemos com agilidade e garantia em todos os serviços prestados, sempre com preços justos e transparentes.</p>
+                    <div class="about-badge"><i class="fas fa-shield-halved"></i> Garantia de 90 dias em todos os serviços</div>
+                </div>
+                <div class="media-box ratio-4-3 about-image">
+                    <img src="assets/equipe.jpg" alt="Equipe MasterServ Limeira" onerror="this.classList.add('img-missing')">
+                    <div class="media-fallback"><i class="fas fa-users"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-head">
+                <div class="eyebrow">Portfólio</div>
+                <h2>Nossos trabalhos</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="media-box ratio-1-1 gallery-item">
+                    <img src="assets/trabalho-ar1.jpg" alt="Instalação de Ar Condicionado" onerror="this.classList.add('img-missing')">
+                    <div class="media-fallback"><i class="fas fa-image"></i></div>
+                    <div class="overlay">Instalação de Ar Condicionado</div>
+                </div>
+                <div class="media-box ratio-1-1 gallery-item">
+                    <img src="assets/trabalho-ar.jpg" alt="Manutenção de Ar Condicionado" onerror="this.classList.add('img-missing')">
+                    <div class="media-fallback"><i class="fas fa-image"></i></div>
+                    <div class="overlay">Manutenção de Ar Condicionado</div>
+                </div>
+                <div class="media-box ratio-1-1 gallery-item">
+                    <img src="assets/trabalho-cabos1.jpg" alt="Câmeras" onerror="this.classList.add('img-missing')">
+                    <div class="media-fallback"><i class="fas fa-image"></i></div>
+                    <div class="overlay">Câmeras</div>
+                </div>
+                <div class="media-box ratio-1-1 gallery-item">
+                    <img src="assets/trabalho-Tv.jpg" alt="Instalação de TV" onerror="this.classList.add('img-missing')">
+                    <div class="media-fallback"><i class="fas fa-image"></i></div>
+                    <div class="overlay">Instalação de TV</div>
+                </div>
+                <div class="media-box ratio-1-1 gallery-item">
+                    <img src="assets/trabalho-camera.jpg" alt="Instalação de câmeras" onerror="this.classList.add('img-missing')">
+                    <div class="media-fallback"><i class="fas fa-image"></i></div>
+                    <div class="overlay">Instalação de câmeras</div>
+                </div>
+                <div class="media-box ratio-1-1 gallery-item">
+                    <img src="assets/trabalho-ventilador.jpg" alt="Instalação de ventiladores" onerror="this.classList.add('img-missing')">
+                    <div class="media-fallback"><i class="fas fa-image"></i></div>
+                    <div class="overlay">Instalação de ventiladores</div>
+                </div>
+                <div class="media-box ratio-1-1 gallery-item">
+                    <img src="assets/trabalho-interfone.jpg" alt="Interfone e fechadura eletrônica" onerror="this.classList.add('img-missing')">
+                    <div class="media-fallback"><i class="fas fa-image"></i></div>
+                    <div class="overlay">Interfone e fechadura eletrônica</div>
+                </div>
+                <div class="media-box ratio-1-1 gallery-item">
+                    <img src="assets/trabalho-fliperama1.jpg" alt="Fliperama" onerror="this.classList.add('img-missing')">
+                    <div class="media-fallback"><i class="fas fa-image"></i></div>
+                    <div class="overlay">Fliperama</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-head">
+                <div class="eyebrow">Orçamento</div>
+                <h2>Solicite seu orçamento</h2>
+                <p>Preencha os dados abaixo e enviamos direto para o nosso WhatsApp.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info-card">
+                    <h3>Fale direto conosco</h3>
+                    <p>Se preferir, chame a gente agora mesmo pelo WhatsApp ou telefone.</p>
+                    <div class="contact-info-row"><i class="fas fa-phone"></i> (19) 99300-7408</div>
+                    <div class="contact-info-row"><i class="fas fa-envelope"></i> masterservlimeira@gmail.com</div>
+                    <div class="contact-info-row"><i class="fas fa-map-marker-alt"></i> Limeira/SP e região</div>
+                    <a href="https://wa.me/5519993007408" target="_blank" class="btn btn-whatsapp" style="margin-top:10px;"><i class="fab fa-whatsapp"></i> Chamar no WhatsApp</a>
+                </div>
+                <form id="service-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="user-type">Você é</label>
+                            <select id="user-type" required>
+                                <option value="">Selecione</option>
+                                <option value="Cliente Residencial">Cliente Residencial</option>
+                                <option value="Imobiliária">Imobiliária</option>
+                                <option value="Empresa">Empresa</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Serviço</label>
+                            <select id="service" required>
+                                <option value="">Selecione</option>
+                                <option value="Ar Condicionado">Ar Condicionado</option>
+                                <option value="Troca de Resistência">Troca de Resistência</option>
+                                <option value="Câmeras">Câmeras</option>
+                                <option value="Interfone/Fechadura">Interfone/Fechadura</option>
+                                <option value="Portão Elétrico">Portão Elétrico</option>
+                                <option value="Elétrica">Elétrica</option>
+                                <option value="TV">TV</option>
+                                <option value="Outro">Outro</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Nome</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefone</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Descrição</label>
+                        <textarea id="description" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Enviar pelo WhatsApp</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="cobertura">
+        <div class="container">
+            <div class="section-head">
+                <div class="eyebrow">Onde atendemos</div>
+                <h2>Área de cobertura</h2>
+            </div>
+            <div class="map-frame">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117715.88200948115!2d-47.4814728!3d-22.5647428!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c8806c4880d3fb%3A0x9e9925fe5d98d6a1!2sLimeira%2C%20SP!5e0!3m2!1sen!2sbr!4v1620000000000!5m2!1sen!2sbr" allowfullscreen="" loading="lazy" title="Área de cobertura MasterServ Limeira"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-info">
+                <h3>MasterServ Limeira</h3>
+                <p>Especialistas em ar condicionado e instalações técnicas para casa e empresa.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/5519993007408" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-contact">
+                <h3>Contato</h3>
+                <p><i class="fas fa-phone"></i> (19) 99300-7408</p>
+                <p><i class="fas fa-envelope"></i> masterservlimeira@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Limeira/SP</p>
+            </div>
+            <div class="footer-links">
+                <h3>Links</h3>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#services">Serviços</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright"><p>&copy; <span id="year"></span> MasterServ Limeira</p></div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="ai-assistant">
+        <button class="ai-button" id="ai-assistant-button" aria-label="Abrir assistente virtual"><i class="bi bi-robot"></i></button>
+        <div class="ai-chat-container" id="ai-chat-container">
+            <div class="ai-chat-header">
+                <div>
+                    <h6>Assistente Virtual AI</h6>
+                    <small>MasterServ Limeira</small>
+                </div>
+                <button id="close-ai-chat" style="background:transparent; border:none; color:white; font-size:1.2rem; cursor:pointer;">✕</button>
+            </div>
+            <div class="ai-chat-messages" id="ai-chat-messages">
+                <div class="ai-message bot">
+                    <p>Olá! Sou a Inteligência Artificial da MasterServ. 🤖✨<br><br>Estou aqui para tirar suas dúvidas rapidamente e agendar serviços como:<br>🔹 Ar Condicionado<br>🔹 Elétrica e Chuveiros<br>🔹 Câmeras e Interfones<br>🔹 Portão elétrico<br><br>Como posso facilitar o seu dia hoje?</p>
+                    <div class="message-time">Agora</div>
+                </div>
+            </div>
+            <div class="ai-chat-input-container">
+                <div class="quick-suggestions">
+                    <div class="suggestion-chip" data-message="Ar condicionado">❄️ Ar Condicionado</div>
+                    <div class="suggestion-chip" data-message="Formas de pagamento">💳 Pagamento</div>
+                    <div class="suggestion-chip" data-message="Instalação de câmera">📷 Instalar Câmera</div>
+                    <div class="suggestion-chip" data-message="Reparo no portão elétrico">🚪 Portão Elétrico</div>
+                    <div class="suggestion-chip" data-message="Tomadas, interruptor, lâmpada">⚡ Elétrica</div>
+                    <div class="suggestion-chip" data-message="Preços">💰 Preços</div>
+                </div>
+                <div class="ai-chat-input">
+                    <input type="text" id="ai-chat-input" placeholder="Pergunte algo ao assistente...">
+                    <button id="ai-send-button"><i class="bi bi-send"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // =====================================================================
+    // SEÇÃO 1: BASE DE CONHECIMENTO DO CHATBOT (Conhecimento da IA)
+    // =====================================================================
+    const knowledgeBase = {
+        servicos: {
+            "ar condicionado": { nome: "Ar Condicionado", preco: "Instalação a partir de R$ 450 | Higienização R$ 200 | Recarga de gás R$ 280", descricao: "Instalação e manutenção preventiva/corretiva.", detalhes: "Serviço com garantia, ferramentas adequadas, vácuo e testes de performance." },
+            "resistência": { nome: "Troca de Resistência", preco: "Mão de obra a partir de R$ 70 + valor da peça", descricao: "Substituição rápida e segura de resistências de chuveiro elétrico.", detalhes: "Inclui verificação de vazamentos e análise da fiação elétrica." },
+            "câmera": { nome: "Instalação de Câmeras", preco: "A partir de R$ 150 por câmera", descricao: "Projetos e instalação de câmeras de segurança CFTV e IP.", detalhes: "Deixamos tudo configurado no seu celular com gravação contínua." },
+            "interfone": { nome: "Interfone e Fechadura", preco: "A partir de R$ 150", descricao: "Instalação de interfones, porteiros eletrônicos e fechaduras digitais.", detalhes: "Configuração completa de senhas, tags e testes de acionamento." },
+            "portão elétrico": { nome: "Manutenção de Portão Elétrico", preco: "A partir de R$ 120 (visita técnica/diagnóstico)", descricao: "Reparos em motores, placas de comando, fim de curso e trilhos.", detalhes: "Codificação de controles remotos e lubrificação do sistema." },
+            "elétrica": { nome: "Serviços Elétricos em Geral", preco: "Tomada R$ 50 | Interruptor R$ 50 | Lâmpada R$ 30 (unidade)", descricao: "Manutenção e criação de novos pontos elétricos residenciais ou comerciais.", detalhes: "Trabalhamos com foco total na segurança da sua instalação." },
+            "tv": { nome: "Instalação de TV", preco: "A partir de R$ 150", descricao: "Fixação de TVs em painéis ou paredes com suporte fixo ou articulado.", detalhes: "Inclui nivelamento a laser e organização da fiação aparente." }
+        },
+        pagamento: "Para sua comodidade, trabalhamos com as seguintes formas de pagamento:\n\n💳 *Cartão de Crédito* (parcelamos em até 12x)\n🔗 *Link de Pagamento* (seguro e online)\n❖ *Pix* (transferência imediata)\n💵 *Dinheiro*",
+        garantia: "🛡️ *Importante:* Todos os nossos serviços contam com garantia legal de 90 dias, assegurando sua tranquilidade!"
+    };
+
+    // =====================================================================
+    // SEÇÃO 2: CLASSE CHATBOT E FUNÇÕES DA INTELIGÊNCIA ARTIFICIAL
+    // =====================================================================
+    class Chatbot {
+        constructor() {
+            this.conversationState = null;
+            this.lastServiceContext = null;
+            this.init();
+        }
+
+        init() {
+            this.setupEventListeners();
+        }
+
+        setupEventListeners() {
+            document.getElementById('ai-assistant-button').addEventListener('click', () => this.toggleChat());
+            document.getElementById('close-ai-chat').addEventListener('click', () => this.closeChat());
+            document.getElementById('ai-send-button').addEventListener('click', () => this.sendMessage());
+            document.getElementById('ai-chat-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') this.sendMessage();
+            });
+            document.querySelectorAll('.suggestion-chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    document.getElementById('ai-chat-input').value = chip.getAttribute('data-message');
+                    this.sendMessage();
+                });
+            });
+        }
+
+        toggleChat() {
+            const container = document.getElementById('ai-chat-container');
+            container.style.display = container.style.display === 'flex' ? 'none' : 'flex';
+            if (container.style.display === 'flex') document.getElementById('ai-chat-input').focus();
+        }
+
+        closeChat() {
+            document.getElementById('ai-chat-container').style.display = 'none';
+        }
+
+        addMessage(text, isUser = false) {
+            const container = document.getElementById('ai-chat-messages');
+            const div = document.createElement('div');
+            div.className = `ai-message ${isUser ? 'user' : 'bot'}`;
+            div.innerHTML = `<p>${text.replace(/\n/g, '<br>')}</p><div class="message-time">${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</div>`;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        showTypingIndicator() {
+            const container = document.getElementById('ai-chat-messages');
+            const div = document.createElement('div');
+            div.id = 'typing-indicator';
+            div.className = 'ai-message bot';
+            div.innerHTML = `<div class="ai-typing"><span></span><span></span><span></span></div>`;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        removeTypingIndicator() {
+            const el = document.getElementById('typing-indicator');
+            if (el) el.remove();
+        }
+
+        resetConversationState() {
+            this.conversationState = null;
+            this.lastServiceContext = null;
+        }
+
+        processMessage(rawMsg) {
+            const msg = rawMsg.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+
+            if (this.conversationState === 'awaiting_confirmation') {
+                const positiveResponses = ['sim', 'quero', 'vamos', 'pode', 'claro', 'gostaria', 'agenda', 'agendar', 's', 'bora', 'com certeza'];
+                const negativeResponses = ['nao', 'agora nao', 'depois', 'n', 'obrigado', 'so queria saber', 'deixa'];
+
+                if (positiveResponses.some(word => msg.includes(word))) {
+                    this.conversationState = 'awaiting_name';
+                    return 'Excelente escolha! 📝 Para eu preparar o seu atendimento, por favor, digite o seu *nome e sobrenome*:';
+                }
+                if (negativeResponses.some(word => msg.includes(word))) {
+                    this.resetConversationState();
+                    return 'Compreendo perfeitamente! Se mudar de ideia ou precisar de mais alguma informação técnica, estarei por aqui. 😉';
+                }
+            }
+
+            if (this.conversationState === 'awaiting_name') {
+                const userName = rawMsg.trim();
+                const serviceName = this.lastServiceContext || "Serviço Geral";
+
+                const whatsappMsg = `*Solicitação de Agendamento (via IA)*\n\n*Cliente:* ${userName}\n*Interesse:* ${serviceName}\n\nOlá, gostaria de verificar a disponibilidade na agenda, por favor.`;
+                const url = `https://wa.me/5519993007408?text=${encodeURIComponent(whatsappMsg)}`;
+
+                const responseText = `Tudo pronto, *${userName}*! Já organizei suas informações referentes a *${serviceName}*.\n\nPara concluirmos e você falar com um especialista humano, basta clicar no botão abaixo:\n\n<a href="${url}" target="_blank" style="background:#25D366; color:white; padding:10px 18px; border-radius:20px; text-decoration:none; display:inline-block; margin-top:10px; font-weight:bold;">📲 Confirmar no WhatsApp</a>`;
+
+                this.resetConversationState();
+                return responseText;
+            }
+
+            this.resetConversationState();
+            let response = '';
+            let triggerSchedule = false;
+
+            const greetings = ['ola', 'oi', 'oie', 'e ai', 'opa', 'bom dia', 'boa tarde', 'boa noite', 'tem alguem', 'ou', 'ow', 'alo'];
+            const howAreYou = ['tudo bem', 'tudo bom', 'como vai', 'beleza', 'joia', 'tudo certo', 'como voce esta'];
+
+            const isGreeting = greetings.some(g => msg === g || msg.startsWith(g + ' ') || msg.endsWith(' ' + g));
+            const isHowAreYou = howAreYou.some(h => msg.includes(h));
+
+            if (isGreeting || isHowAreYou) {
+                const currentHour = new Date().getHours();
+                let timeGreeting = 'Olá';
+                if (currentHour >= 5 && currentHour < 12) timeGreeting = 'Bom dia';
+                else if (currentHour >= 12 && currentHour < 18) timeGreeting = 'Boa tarde';
+                else timeGreeting = 'Boa noite';
+
+                let aiResponse = `${timeGreeting}! Sou a assistente virtual inteligente da MasterServ. 🤖✨\n\n`;
+                if (isHowAreYou) aiResponse += "Por aqui está tudo ótimo, funcionando 100%! 🔋\n\n";
+                aiResponse += "Como posso ajudar você hoje? Pode me perguntar sobre serviços como Ar Condicionado, Elétrica, Câmeras, ou solicitar nossa tabela de preços.";
+                return aiResponse;
+            }
+
+            const servicos = knowledgeBase.servicos;
+
+            if (msg.includes('ar condicionado') || msg.includes('split') || msg.includes('arcondicionado') || msg.includes('climatizacao')) {
+                this.lastServiceContext = servicos["ar condicionado"].nome;
+                response = `Encontrei as informações sobre *${servicos["ar condicionado"].nome}*! ❄️\n\n💰 *Valores:* ${servicos["ar condicionado"].preco}\n📝 *Descrição:* ${servicos["ar condicionado"].descricao}\n🛡️ *Detalhes:* ${servicos["ar condicionado"].detalhes}`;
+                triggerSchedule = true;
+            } else if (msg.includes('resistencia') || msg.includes('chuveiro') || msg.includes('queimou')) {
+                this.lastServiceContext = servicos["resistência"].nome;
+                response = `Entendi, você precisa de ajuda com *${servicos["resistência"].nome}*! 🚿\n\n💰 *Valores:* ${servicos["resistência"].preco}\n📝 *Descrição:* ${servicos["resistência"].descricao}\n🛡️ *Detalhes:* ${servicos["resistência"].detalhes}`;
+                triggerSchedule = true;
+            } else if (msg.includes('camera') || msg.includes('cftv') || msg.includes('seguranca') || msg.includes('intelbras')) {
+                this.lastServiceContext = servicos["câmera"].nome;
+                response = `Ótima escolha se preocupar com segurança. Sobre *${servicos["câmera"].nome}* temos: 📷\n\n💰 *Valores:* ${servicos["câmera"].preco}\n📝 *Descrição:* ${servicos["câmera"].descricao}`;
+                triggerSchedule = true;
+            } else if (msg.includes('interfone') || msg.includes('fechadura') || msg.includes('tag')) {
+                this.lastServiceContext = servicos["interfone"].nome;
+                response = `Claro! Sobre sistemas de *${servicos["interfone"].nome}*: 🔔\n\n💰 *Valores:* ${servicos["interfone"].preco}\n📝 *Descrição:* ${servicos["interfone"].descricao}`;
+                triggerSchedule = true;
+            } else if (msg.includes('portao') || msg.includes('motor') || msg.includes('controle')) {
+                this.lastServiceContext = servicos["portão elétrico"].nome;
+                response = `Seu portão parou? Sobre *${servicos["portão elétrico"].nome}*: 🚪\n\n💰 *Valores:* ${servicos["portão elétrico"].preco}\n📝 *Descrição:* ${servicos["portão elétrico"].descricao}`;
+                triggerSchedule = true;
+            } else if (msg.includes('tomada') || msg.includes('interruptor') || msg.includes('lampada') || msg.includes('eletrica') || msg.includes('disjuntor') || msg.includes('fio')) {
+                this.lastServiceContext = servicos["elétrica"].nome;
+                response = `Sobre *${servicos["elétrica"].nome}*: ⚡\n\n💰 *Valores:* ${servicos["elétrica"].preco}\n📝 *Descrição:* ${servicos["elétrica"].descricao}\n🛡️ *Detalhes:* ${servicos["elétrica"].detalhes}`;
+                triggerSchedule = true;
+            } else if (msg.includes('tv') || msg.includes('televisao') || msg.includes('suporte')) {
+                this.lastServiceContext = servicos["tv"].nome;
+                response = `Compreendido! Para *${servicos["tv"].nome}*: 📺\n\n💰 *Valores:* ${servicos["tv"].preco}\n📝 *Descrição:* ${servicos["tv"].descricao}`;
+                triggerSchedule = true;
+            } else if (msg.includes('pagamento') || msg.includes('pagar') || msg.includes('cartao') || msg.includes('pix') || msg.includes('parcela')) {
+                response = `💳 *CONDIÇÕES DE PAGAMENTO*\n\n${knowledgeBase.pagamento}`;
+                triggerSchedule = true;
+            } else if (msg.includes('preco') || msg.includes('valor') || msg.includes('quanto') || msg.includes('tabela')) {
+                response = `💲 *RESUMO DOS NOSSOS VALORES INICIAIS:*\n\n❄️ Ar Condicionado: R$ 450\n🚿 Chuveiro: R$ 70\n📷 Câmeras: R$ 150\n🔔 Interfone: R$ 150\n🚪 Portão: R$ 120\n⚡ Elétrica: R$ 50\n\n${knowledgeBase.garantia}\n_(Valores podem variar após avaliação)_`;
+                triggerSchedule = true;
+            } else if (msg.includes('obrigado') || msg.includes('valeu') || msg.includes('agradeco')) {
+                return 'Eu que agradeço o contato! ✨ Como uma inteligência artificial da MasterServ, meu objetivo é facilitar sua vida. Fique à vontade para retornar quando precisar!';
+            } else {
+                return `Compreendo. Como sou uma inteligência artificial em constante aprendizado, ainda não tenho a resposta exata para *" ${rawMsg} "*. 🤔\n\nMas não se preocupe! Posso transferir nosso chat diretamente para um especialista humano no WhatsApp para ele analisar seu caso:\n\n<a href="#" onclick="window.chatbot.redirectToWhatsApp('${rawMsg.replace(/'/g, "\\\\'")}'); return false;" style="background:#25D366; color:white; padding:8px 15px; border-radius:20px; text-decoration:none; display:inline-block; margin-top:10px;">📲 Falar com Especialista</a>`;
+            }
+
+            if (triggerSchedule) {
+                this.conversationState = 'awaiting_confirmation';
+                return `${response}\n\n👉 *Gostaria de aproveitar e já verificar a disponibilidade na nossa agenda para este serviço?* (Responda Sim ou Não)`;
+            }
+
+            return response;
+        }
+
+        redirectToWhatsApp(question) {
+            const msg = `*Dúvida transferida da IA do site*:\n"${question}"\n\nOlá, preciso de ajuda humana com isso.`;
+            window.open(`https://wa.me/5519993007408?text=${encodeURIComponent(msg)}`, '_blank');
+            this.addMessage("✅ Transferência realizada! Um de nossos especialistas dará continuidade ao seu atendimento no WhatsApp.", false);
+        }
+
+        sendMessage() {
+            const input = document.getElementById('ai-chat-input');
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            this.addMessage(msg, true);
+            input.value = '';
+
+            this.showTypingIndicator();
+            setTimeout(() => {
+                this.removeTypingIndicator();
+                const response = this.processMessage(msg);
+                if (response) {
+                    this.addMessage(response, false);
+                }
+            }, 1000);
+        }
+    }
+
+    // =====================================================================
+    // SEÇÃO 3: INICIALIZAÇÃO GERAL DA PÁGINA
+    // =====================================================================
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ano no rodapé
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Header muda de estilo ao rolar a página
+        const header = document.getElementById('site-header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 40);
+        });
+
+        // Envio do formulário de orçamento direto para o WhatsApp
+        const form = document.getElementById('service-form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const userType = document.getElementById('user-type').value;
+            const service = document.getElementById('service').value;
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const description = document.getElementById('description').value;
+
+            const message = `*Solicitação de Orçamento - Site*\n\n*Nome:* ${name}\n*Tipo:* ${userType}\n*Telefone:* ${phone}\n*E-mail:* ${email || 'não informado'}\n*Serviço:* ${service}\n*Descrição:* ${description}`;
+            window.open(`https://wa.me/5519993007408?text=${encodeURIComponent(message)}`, '_blank');
+        });
+
+        window.chatbot = new Chatbot();
+    });
+</script>
+
+</body>
+</html>
